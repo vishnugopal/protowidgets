@@ -27,6 +27,7 @@ var ProtoLabel = Class.create({
 		this.edit_label.hide();
 		this.edit_box.focus();
 		this.edit_box.select();
+		event.stop();
 	},
 	
 	restore: function(event) {
@@ -186,6 +187,9 @@ var ProtoBox = Class.create({
 		this.options = options;
 		this.links = [];
 		this.draw();
+		if(this.options.inspector) {
+			this.setInspector();
+		};
 	},
 	
 	draw: function(options) {
@@ -232,6 +236,22 @@ var ProtoBox = Class.create({
 		this.links.each(function(link) {
 			link.update();
 		});
+	},
+	
+	setInspector: function() {
+		this.inspector = new ProtoInspector(this.options.inspector);
+		this.inspector.setPosition({
+			left: this.box.cumulativeOffset()[0] + this.box.getWidth() + 10,
+			top: this.box.cumulativeOffset()[1] + 10
+		});
+		this.inspector.setTarget(this.box);
+		Event.observe(this.box, "dblclick", this.toggleInspector.bindAsEventListener(this));
+	},
+	
+	toggleInspector: function(event) {
+		if(this.inspector) {
+			this.inspector.toggle();
+		}
 	},
 	
 	isParentOf: function(box) {

@@ -44,6 +44,11 @@
 	padding: 0;
 }
 
+.protoinspector-default legend {
+	padding-left: 5px;
+	padding-right: 10px;
+}
+
 .protoinspector-default label {
 	display: block;
 	float: left;
@@ -66,4 +71,16 @@
 	position: relative;
 	left: 50%;
 	margin-left: -25%;
+}
+
+a.protoinspector-default-close-button {
+	float: left;
+	position: relative;
+	background: url('close-button.gif');
+	width: 14px;
+	height: 13px;
+}
+
+.protoinspector-target-focus {
+	border: 2px solid green;
 }
