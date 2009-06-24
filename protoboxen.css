@@ -42,7 +42,7 @@ span.protobox-editable {
 	display: block;
 	position: absolute;
 	border: 0px;
-	background: url('arrow-end.gif');
+	background: url('icons/arrow_end.gif');
 	width: 10px;
 }
 

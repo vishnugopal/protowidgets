@@ -78,7 +78,7 @@
 a.protoinspector-default-close-button {
 	float: left;
 	position: relative;
-	background: url('close-button.gif');
+	background: url('icons/close_button.gif');
 	width: 16px;
 	height: 16px;
 }
