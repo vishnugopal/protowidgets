@@ -42,7 +42,6 @@ var ProtoInspector = Class.create({
 	},
 	
 	focusTarget: function(event) {
-		console.log(this.options.target);
 		if(this.options.target) {
 			this.options.target.addClassName("protoinspector-target-focus");
 		}

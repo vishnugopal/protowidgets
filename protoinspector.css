@@ -66,6 +66,28 @@
 
 .protoinspector-default input[type='submit'],  .protoinspector-default button {
 	float: right;
+	border: 1px outset #555;
+	background-color: #1E1E1E;
+	color: #ccc;
+}
+
+.protoinspector-default input[type='submit']:active, .protoinspector-default button:active {
+	border: 1px inset #555;
+}
+
+.protoinspector-default button.icon {
+	text-indent: -5000px;
+	width: 16px;
+	height: 16px;
+	padding: 8px;
+}
+
+.protoinspector-default button.delete {
+	background: url('icons/action_remove.gif') no-repeat;
+}
+
+.protoinspector-default button.selector {
+	background: url('icons/application.gif') no-repeat;
 }
 
 .protoinspector-default .center {
@@ -81,6 +103,11 @@ a.protoinspector-default-close-button {
 	background: url('icons/close_button.gif');
 	width: 16px;
 	height: 16px;
+	border: 1px outset #555;
+}
+
+a.protoinspector-default-close-button:active {
+	border: 1px inset #555;
 }
 
 .protoinspector-target-focus {
