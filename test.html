@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Protoboxen Test</title>
+	<meta name="author" content="Vishnu Gopal"/>
+	
+	<link rel="stylesheet" href="protoboxen.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
+	
+  <script src="lib/prototype.js" type="text/javascript"></script>
+  <script src="lib/scriptaculous.js" type="text/javascript"></script>
+  <script src="protoboxen.js" type="text/javascript"></script>
+</head>
+<body>
+
+<script type="text/javascript" charset="utf-8">
+  box1 = new Protobox({ id: "box1", draggable: true, label: "Menu", left: 200, top: 100 });
+  box2 = new Protobox({ id: "box2", draggable: true, label: "Menu", left: 100, top: 300 });
+  box3 = new Protobox({ id: "box3", draggable: true, label: "Message", left: 300, top: 300 });
+  box4 = new Protobox({ id: "box4", draggable: true, label: "Message", left: 300, top: 500 });
+  box5 = new Protobox({ id: "box5", draggable: true, label: "Redirect", left: 500, top: 300 });
+  
+  
+  box1.link({to: box2, relationship: "parent"});
+  box1.link({to: box3, relationship: "parent"});
+  box4.link({to: box2, relationship: "child"});
+  box1.link({to: box5, relationship: "parent"});
+  box5.link({to: box1, relationship: "parent"});
+</script>
+</body>
+</html>
