@@ -1,6 +1,6 @@
 
 
-var Protolabel = Class.create({
+var ProtoLabel = Class.create({
 	class_name: "protobox-editable",
 	
 	initialize: function(box, options) {
@@ -110,7 +110,7 @@ var ProtoOrthogonalLine = Class.create({
 	}
 });
 
-var Protolink = Class.create({
+var ProtoLink = Class.create({
 	class_name: "protobox-link",
 	
 	initialize: function(options) {
@@ -179,7 +179,7 @@ var Protolink = Class.create({
 	}
 });
 
-var Protobox = Class.create({
+var ProtoBox = Class.create({
 	class_name: "protobox-default",
 		
 	initialize: function(options) {
@@ -199,17 +199,17 @@ var Protobox = Class.create({
 		}
 		
 		if(this.options.label) {
-			this.label = new Protolabel(this.box, { value: (this.options.label == true) ? "Untitled" : this.options.label });
+			this.label = new ProtoLabel(this.box, { value: (this.options.label == true) ? "Untitled" : this.options.label });
 		}
 	},
 	
 	link: function(options) {
 		if(options.relationship == 'child') {
-			link = new Protolink({ from: options.to, to: this });
+			link = new ProtoLink({ from: options.to, to: this });
 			this.links.push(link);
 			options.to.links.push(link);
 		} else if (options.relationship == "parent") {
-			link = new Protolink({ from: this, to: options.to });
+			link = new ProtoLink({ from: this, to: options.to });
 			this.links.push(link);
 			options.to.links.push(link);
 		}
