@@ -30,6 +30,22 @@ Here box4 is the "child" of box2.
 
 A box can have multiple children and multiple parents, we're kinda promiscuous that way :)
 
+Inspectors:
+Boxes can now also have a HUD style inspector.
+
+To create an inspector, populate an inspector div with contents (see test.html for common form structures) and then pass an inspector hash to the ProtoBox constructor.
+For e.g:
+box1 = new ProtoBox({ 
+  id: "box1", 
+  draggable: true, 
+  label: "Menu", 
+  left: 200, 
+  top: 100,
+  inspector: { id: "box1-inspector" }
+});
+
+Inspectors are OSX-style HUD inspectors which can be filled with data. To invoke an inspector, double click on the box.
+
 Demo:
 See test.html for a demo.
 
