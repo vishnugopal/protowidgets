@@ -1,0 +1,69 @@
+
+.protoinspector-default {
+	font: 12px Helvetica, Arial, sans-serif;
+	color: #ccc;
+	display: block;
+	position: absolute;
+	width: 300px;
+	background-color: #111;
+	-moz-opacity: .90;
+	-webkit-opacity: .90;
+	-webkit-border-radius: 10px;
+	z-index: 100;
+	border: 1px solid black;
+}
+
+.protoinspector-default .title {
+	cursor: default;
+	padding: 5px;
+	background-color: #1E1E1E;
+	-moz-opacity: 1;
+	-webkit-opacity: 1;
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-top-right-radius: 10px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.protoinspector-default .content {
+	padding: 5px;
+}
+
+.protoinspector-default .content:after {
+	content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.protoinspector-default fieldset {
+	border: 0px;
+	border-top: 1px solid black;
+	margin: 0;
+	padding: 0;
+}
+
+.protoinspector-default label {
+	display: block;
+	float: left;
+	width: 120px;
+	margin-right: 10px;
+	text-align: right;
+}
+
+.protoinspector-default input[type='text'], .protoinspector-default textarea {
+	padding: 0; margin: 0;
+	width: 120px;
+}
+
+.protoinspector-default input[type='submit'],  .protoinspector-default button {
+	float: right;
+}
+
+.protoinspector-default .center {
+	float: left;
+	position: relative;
+	left: 50%;
+	margin-left: -25%;
+}

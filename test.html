@@ -16,6 +16,22 @@
 </head>
 <body>
 
+<div id="inspector-menu">
+  <div class="title">Menu Inspector</div>
+  <div class="content">
+    <form action="" method="get" accept-charset="utf-8">
+      <p><label for="menu_title">Menu Text:</label> <textarea name="menu_text"></textarea></p>
+      <fieldset>
+        <legend>Menu Items</legend>
+        <p><label for="menu_option[]">Menu Option Label:</label> <input type="text" name="menu_option[]" value=""/> <button name="delete">–</button></p>
+        <p><label for="menu_target[]">Menu Target (id):</label> <input type="text" name="menu_target[]" value=""/> <button name="select">&raquo;</button></p>
+        <p><button name="add_more" class="center">Add more menu items</button></p>
+      </fieldset>
+      <p><button name="apply">Apply</a></p>
+    </form>
+  </div>
+</div>
+
 <script type="text/javascript" charset="utf-8">
   box1 = new ProtoBox({ id: "box1", draggable: true, label: "Menu", left: 200, top: 100 });
   box2 = new ProtoBox({ id: "box2", draggable: true, label: "Menu", left: 100, top: 300 });
@@ -29,6 +45,10 @@
   box4.link({to: box2, relationship: "child"});
   box1.link({to: box5, relationship: "parent"});
   box5.link({to: box1, relationship: "parent"});  
+
+  menu_inspector = new ProtoInspector({id: "inspector-menu"});
+  menu_inspector.show({left: 600, top: 20});
+  
 </script>
 </body>
 </html>
