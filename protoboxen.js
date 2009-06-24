@@ -154,13 +154,13 @@ var Protolink = Class.create({
 			top2: end_line_top - end_line_height,
 			class_name: "protobox-arrow-end"
 		});
-		
+				
 		this.connecting_line = new ProtoOrthogonalLine({ 
 			left1: start_line_left, 
 			top1: start_line_top + start_line_height, 
 			left2: end_line_left + 4, 
 			top2: end_line_top - end_line_height - 1,
-			randomOffset: this.randomOffset
+			randomOffset: this.options.to.isParentOf(this.options.from) ? this.randomOffset : 0
 		});
 	},
 	
@@ -213,6 +213,12 @@ var Protobox = Class.create({
 			this.links.push(link);
 			options.to.links.push(link);
 		}
+		if(parentLink = this.parentLinkTo(options.to)) {
+			parentLink.update();
+		}
+		if(childLink = this.childLinkTo(options.to)) {
+			childLink.update();
+		}
 	},
 	
 	removeLinks: function() {
@@ -226,5 +232,29 @@ var Protobox = Class.create({
 		this.links.each(function(link) {
 			link.update();
 		});
+	},
+	
+	isParentOf: function(box) {
+		return this.links.any(function(link) {
+			return (link.options.from == this) && (link.options.to == box);
+		}, this);
+	},
+	
+	isChildOf: function(box) {
+		return this.links.any(function(link) {
+			return (link.options.from == box) && (link.options.to == this);
+		}, this);
+	},
+	
+	parentLinkTo: function(box) {
+		return this.links.detect(function(link) {
+			return (link.options.from == this) && (link.options.to == box);
+		}, this);
+	},
+	
+	childLinkTo: function(box) {
+		return this.links.detect(function(link) {
+			return (link.options.from == box) && (link.options.to == this);
+		}, this);
 	}
 });
