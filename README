@@ -1,5 +1,5 @@
 
-Protoboxen is a Javascript library designed to generate linkable, labelable and draggable CSS boxes.
+ProtoBoxen is a Javascript library designed to generate linkable, labelable and draggable CSS boxes.
 
 Depends on:
 * prototype
@@ -9,9 +9,9 @@ These are distributed with protoboxen in the lib/ directory.
 
 You generate a box with the following syntax:
 
-var box1 = new Protobox({ id: "box1", draggable: true, label: "Menu", left: 200, top: 100 });
+var box1 = new ProtoBox({ id: "box1", draggable: true, label: "Menu", left: 200, top: 100 });
 
-Protobox takes the following options:
+ProtoBox takes the following options:
 id (required): The DOM id of the box.
 draggable (optional): The box can be dragged if true.
 label (optional): Either "true" (in which case the label is "Untitled") or the label text. Labels if present are editable by double-clicking on them.
@@ -23,7 +23,7 @@ You link two boxes with the following syntax:
 box4.link({to: box2, relationship: "child"});
 
 takes two parameters:
-to: the target box, must be a Protobox object.
+to: the target box, must be a ProtoBox object.
 relationship: either "child" or "parent"
 
 Here box4 is the "child" of box2.
@@ -36,7 +36,7 @@ See test.html for a demo.
 
 More hints:
 * Change the arrow-end.gif to have a transparent background in case you're not working with a white background.
-* Subclass Protobox and use a different class_name property to style things differently and to add more functionality.
+* Subclass ProtoBox and use a different class_name property to style things differently and to add more functionality.
 
 Deploy:
 You might wish to use a javascript dependency management system (like sprockets) when you deploy.
