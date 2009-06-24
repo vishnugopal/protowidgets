@@ -58,7 +58,7 @@ var ProtoInspector = Class.create({
 		if(!this.inspector.style.left) {		
 			this.inspector.style.left = this.options.left + "px";
 		}
-		if(!this.inspector.style.right) {
+		if(!this.inspector.style.top) {
 			this.inspector.style.top = this.options.top + "px";
 		}
 		this.inspector.show();

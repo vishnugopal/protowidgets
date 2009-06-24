@@ -9,6 +9,7 @@
 	-moz-opacity: .90;
 	-webkit-opacity: .90;
 	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
 	z-index: 100;
 	border: 1px solid black;
 }
@@ -21,6 +22,7 @@
 	-webkit-opacity: 1;
 	-webkit-border-top-left-radius: 10px;
 	-webkit-border-top-right-radius: 10px;
+	-moz-border-radius: 10px;
 	margin-bottom: 10px;
 	text-align: center;
 }
