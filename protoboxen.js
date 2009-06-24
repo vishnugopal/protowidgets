@@ -1,6 +1,6 @@
 
 
-var Label = Class.create({
+var Protolabel = Class.create({
 	class_name: "protobox-editable",
 	
 	initialize: function(box, options) {
@@ -71,7 +71,7 @@ var ProtoStraightLine = Class.create({
 			this.line.style.width = width + "px";
 			this.line.show();
 		} else {
-			this.line.remove();
+			this.remove();
 		}
 	},
 	
@@ -199,7 +199,7 @@ var Protobox = Class.create({
 		}
 		
 		if(this.options.label) {
-			this.label = new Label(this.box, { value: (this.options.label == true) ? "Untitled" : this.options.label });
+			this.label = new Protolabel(this.box, { value: (this.options.label == true) ? "Untitled" : this.options.label });
 		}
 	},
 	
