@@ -100,6 +100,7 @@ var ProtoWidget = {
 			if(this.options.onTarget) {
 				this.options.onTarget(target);
 			}
+			target.removeClassName(this.class_name_target);
 		},
 	
 		removeAllObservers: function(event) {
