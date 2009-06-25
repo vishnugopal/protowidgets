@@ -65,29 +65,42 @@
 }
 
 .protoinspector-default input[type='submit'],  .protoinspector-default button {
+	color: #aaa;
 	float: right;
-	border: 1px outset #555;
-	background-color: #1E1E1E;
-	color: #ccc;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	background-color: #555;
+	border: 0px;
+}
+
+.protoinspector-default input[type='submit']:hover, .protoinspector-default button:hover {
+	background-color: black;
 }
 
 .protoinspector-default input[type='submit']:active, .protoinspector-default button:active {
-	border: 1px inset #555;
+	background-color: black;
 }
 
 .protoinspector-default button.icon {
 	text-indent: -5000px;
 	width: 16px;
 	height: 16px;
-	padding: 8px;
+	padding: 10px;
+	background-color: #555;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.protoinspector-default button.icon:hover, .protoinspector-default button.icon:active {
+	background-color: black;
 }
 
 .protoinspector-default button.delete {
-	background: url('icons/action_remove.gif') no-repeat;
+	background-image: url('icons/action_remove.gif');
 }
 
 .protoinspector-default button.selector {
-	background: url('icons/application.gif') no-repeat;
+	background-image: url('icons/application.gif');
 }
 
 .protoinspector-default .center {
@@ -98,16 +111,19 @@
 }
 
 a.protoinspector-default-close-button {
+	display: block;
 	float: left;
 	position: relative;
 	background: url('icons/close_button.gif');
 	width: 16px;
 	height: 16px;
-	border: 1px outset #555;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	background-color: #555;
 }
 
-a.protoinspector-default-close-button:active {
-	border: 1px inset #555;
+a.protoinspector-default-close-button:hover {
+	background-color: black;
 }
 
 .protoinspector-target-focus {
