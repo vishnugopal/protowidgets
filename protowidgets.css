@@ -2,3 +2,49 @@
 .protowidget-selector-target {
 	border: 2px solid green;
 }
+
+.protowidget-toolbar {
+	position: fixed;
+	left: 50%;
+	top: 0;
+	width: 90%;
+	margin-left: -45%;
+	background-color: #111;
+	color: #ccc;
+	-moz-opacity: .90;
+	-webkit-opacity: .90;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	padding: 10px;
+	z-index: 1000;
+}
+
+.protowidget-toolbar button {
+	color: #aaa;
+	float: left;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	background-color: #555;
+	border: 0px;
+	margin: 0px;
+	padding: 8px;
+	margin-right: 10px;
+}
+
+.protowidget-toolbar button.icon {
+	text-align: left;
+	text-indent: 18px;
+	min-width: 16px;
+	min-height: 16px;
+	background-position: 5px center;
+	background-repeat: no-repeat;
+}
+
+.protowidget-toolbar button:hover {
+	background-color: black;
+}
+
+.protowidget-toolbar button:active {
+	background-color: black;
+}
+

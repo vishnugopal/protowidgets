@@ -32,6 +32,12 @@ var CSSRule = Class.create({
 
 
 var ProtoWidget = {
+	
+	options: {
+		icons_path: "icons",
+		icons_extension: "gif"
+	},
+	
 	Targeter: Class.create({	
 		class_name_target: "protowidget-selector-target",
 	
@@ -131,7 +137,25 @@ var ProtoWidget = {
 	}),
 	
 	Toolbar: Class.create({
+		class_name: "protowidget-toolbar",
 		
+		initialize: function(options) {
+			this.options = options;
+			this.draw();
+		},
+		
+		draw: function() {
+			this.toolbar = $(this.options.id);
+			this.toolbar.addClassName(this.options.class_name || this.class_name);
+			$$("#" + this.options.id + " button.icon").each(function(button) {
+				icon_name = button.readAttribute("data:icon");
+				icon_path = ProtoWidget.options.icons_path + "/" + icon_name + "." + ProtoWidget.options.icons_extension;
+				console.log(icon_path);
+				button.setStyle({
+					backgroundImage: "url('" + icon_path + "')"
+				});
+			});
+		}
 	})
 }
 
