@@ -45,6 +45,10 @@
   </div>
 </div>
 
+<form id="menu-toolbar">
+  <button name="add_box" class="icon add">Add flow box</button>
+</form>
+
 <script type="text/javascript" charset="utf-8">
   
   menu_inspector = new ProtoInspector({ id: "box1-inspector" });
@@ -78,13 +82,17 @@
   box5.link({to: box1, relationship: "parent"});  
 
   $$('.selector').each(function(element) {
-    new ProtoWidget.Selector({
+    new ProtoWidget.Targeter({
       element: element, 
-      target_class: 'protobox-default', 
+      target_class_name: 'protobox-default', 
       onTarget: function(element) {
         $('box1-menu-target-1').value = element.id;
       }
     });
+  });
+  
+  toolbar = new ProtoWidget.Toolbar({
+    id: "menu-toolbar"
   });
     
 </script>

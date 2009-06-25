@@ -32,7 +32,7 @@ var CSSRule = Class.create({
 
 
 var ProtoWidget = {
-	Selector: Class.create({	
+	Targeter: Class.create({	
 		class_name_target: "protowidget-selector-target",
 	
 		initialize: function(options) {
@@ -63,7 +63,7 @@ var ProtoWidget = {
 			this.targetObserverSelectFunctions = [];
 			
 			//observers for class name mouseover, mouseout and click
-			$$('.' + this.options.target_class).each(function(target) {
+			$$('.' + this.options.target_class_name).each(function(target) {
 				targetObserverAddSelector = this.addSelectorToTarget.bindAsEventListener(this, target);
 				targetObserverRemoveSelector = this.removeSelectorFromTarget.bindAsEventListener(this, target);
 				targetObserverSelect = this.selectTarget.bindAsEventListener(this, target);
@@ -128,6 +128,10 @@ var ProtoWidget = {
 			this.documentObserverEscape = null;
 			this.style_move_cursor = null;
 		}
+	}),
+	
+	Toolbar: Class.create({
+		
 	})
 }
 
