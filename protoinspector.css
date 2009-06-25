@@ -22,7 +22,8 @@
 	-webkit-opacity: 1;
 	-webkit-border-top-left-radius: 10px;
 	-webkit-border-top-right-radius: 10px;
-	-moz-border-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-topright: 10px;
 	margin-bottom: 10px;
 	text-align: center;
 }
@@ -32,6 +33,14 @@
 }
 
 .protoinspector-default .content:after {
+	content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.protoinspector-default p:after {
 	content: ".";
   display: block;
   height: 0;
@@ -60,7 +69,8 @@
 }
 
 .protoinspector-default input[type='text'], .protoinspector-default textarea {
-	padding: 0; margin: 0;
+	float: left;
+	padding: 0px; margin: 0px;
 	width: 120px;
 }
 
@@ -71,6 +81,7 @@
 	-moz-border-radius: 5px;
 	background-color: #555;
 	border: 0px;
+	margin: 0px;
 }
 
 .protoinspector-default input[type='submit']:hover, .protoinspector-default button:hover {
