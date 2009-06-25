@@ -21,7 +21,7 @@ var CSSRule = Class.create({
 		headElement = $$("head")[0];
 		this.styleElement = document.createElement("style");
 		this.styleElement.type = "text/css";
-		Element.insert(headElement, { after: this.styleElement });
+		Element.insert(headElement, { bottom: this.styleElement });
 		this.addRuleToStyle();
 	},
 	
@@ -30,10 +30,103 @@ var CSSRule = Class.create({
 	}
 });
 
-var ProtoWidgets = {
+
+var ProtoWidget = {
+	Selector: Class.create({	
+		class_name_target: "protowidget-selector-target",
 	
-	var Selector = Class.create({
+		initialize: function(options) {
+			this.options = options;
+			if(this.options.id) {
+				this.element = $(this.options.id)
+			} else {
+				this.element = this.options.element;
+			}
+			this.initSelector();
+		},
+	
+		initSelector: function() {
+			this.element.observe("click", this.initObservers.bindAsEventListener(this));
+		},
+	
+		addSelectorToTarget: function(event, target) {
+			target.addClassName(this.class_name_target);
+		},
+	
+		removeSelectorFromTarget: function(event, target) {
+			target.removeClassName(this.class_name_target);
+		},
+	
+		initObservers: function(event) {
+			this.targetObserverAddSelectorFunctions = [];
+			this.targetObserverRemoveSelectorFunctions = [];
+			this.targetObserverSelectFunctions = [];
+			
+			//observers for class name mouseover, mouseout and click
+			$$('.' + this.options.target_class).each(function(target) {
+				targetObserverAddSelector = this.addSelectorToTarget.bindAsEventListener(this, target);
+				targetObserverRemoveSelector = this.removeSelectorFromTarget.bindAsEventListener(this, target);
+				targetObserverSelect = this.selectTarget.bindAsEventListener(this, target);
+			
+				this.targetObserverAddSelectorFunctions.push([targetObserverAddSelector, target]);
+				this.targetObserverRemoveSelectorFunctions.push([targetObserverRemoveSelector, target]);
+				this.targetObserverSelectFunctions.push([targetObserverSelect, target]);
+			
+				target.observe("mouseover", targetObserverAddSelector);
+				target.observe("mouseout", targetObserverRemoveSelector);
+				target.observe("click", targetObserverSelect);
+			}, this);
+			
+			//observer for ESC key to quit selection
+			this.documentObserverEscape = this.monitorKeyPressForEscape.bindAsEventListener(this);
+			Event.observe(document, 'keydown', this.documentObserverEscape);
+			
+			//cross hair cursor for entire document
+			this.style_move_cursor = new CSSRule('*', 'cursor:crosshair;');			
+			
+			event.stop();
+		},
 		
-	});
+		monitorKeyPressForEscape: function(event) {
+			console.log("key pressed");
+			if(event.keyCode == Event.KEY_ESC) {
+				this.removeAllObservers();
+			}
+		},
 	
-};
+		selectTarget: function(event, target) {
+			this.target = target;
+			this.removeAllObservers();
+			if(this.options.onTarget) {
+				this.options.onTarget(target);
+			}
+		},
+	
+		removeAllObservers: function(event) {
+			this.targetObserverAddSelectorFunctions.each(function(observerTargetPair) {
+				observer = observerTargetPair[0];
+				target = observerTargetPair[1];
+				Event.stopObserving(target, "mouseover", observer);
+			});
+			this.targetObserverRemoveSelectorFunctions.each(function(observerTargetPair) {
+				observer = observerTargetPair[0];
+				target = observerTargetPair[1];
+				Event.stopObserving(target, "mouseout", observer);
+			});
+			this.targetObserverSelectFunctions.each(function(observerTargetPair) {
+				observer = observerTargetPair[0];
+				target = observerTargetPair[1];
+				Event.stopObserving(target, "click", observer);
+			});
+			Event.stopObserving(document, "keydown", this.documentObserverEscape);
+			this.style_move_cursor.remove();
+			
+			this.targetObserverAddSelectorFunctions = null;
+			this.targetObserverRemoveSelectorFunctions = null;
+			this.targetObserverSelectFunctions = null;
+			this.documentObserverEscape = null;
+			this.style_move_cursor = null;
+		}
+	})
+}
+

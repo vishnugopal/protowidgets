@@ -239,7 +239,11 @@ var ProtoBox = Class.create({
 	},
 	
 	setInspector: function() {
-		this.inspector = new ProtoInspector(this.options.inspector);
+		if(this.options.inspector.id) {
+			this.inspector = new ProtoInspector(this.options.inspector);
+		} else {
+			this.inspector = this.options.inspector;
+		}
 		this.inspector.setPosition({
 			left: this.box.cumulativeOffset()[0] + this.box.getWidth() + 10,
 			top: this.box.cumulativeOffset()[1] + 10
