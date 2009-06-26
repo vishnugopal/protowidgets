@@ -59,7 +59,7 @@ var ProtoWidgetBox = Class.create({
 	
 	setInspector: function() {
 		if(this.options.inspector.id) {
-			this.inspector = new ProtoInspector(this.options.inspector);
+			this.inspector = new ProtoWidget.Inspector(this.options.inspector);
 		} else {
 			this.inspector = this.options.inspector;
 		}

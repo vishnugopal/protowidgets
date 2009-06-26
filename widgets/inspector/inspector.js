@@ -2,8 +2,8 @@
 /* Creates a HUD style inspector element that is great for making
 	 OSX-like inspector windows. */
 
-var ProtoInspector = Class.create({
-	class_name: "protoinspector-default",
+var ProtoWidgetInspector = Class.create({
+	class_name: "protowidget-inspector-default",
 	
 	initialize: function(options) {
 		this.options = options;
@@ -43,13 +43,13 @@ var ProtoInspector = Class.create({
 	
 	focusTarget: function(event) {
 		if(this.options.target) {
-			this.options.target.addClassName("protoinspector-target-focus");
+			this.options.target.addClassName("protowidget-inspector-target-focus");
 		}
 	},
 	
 	defocusTarget: function(event) {
 		if(this.options.target) {
-			this.options.target.removeClassName("protoinspector-target-focus");
+			this.options.target.removeClassName("protowidget-inspector-target-focus");
 		}
 	},
 	
@@ -75,3 +75,12 @@ var ProtoInspector = Class.create({
 		this.inspector.hide();
 	}
 });
+
+
+if(typeof(ProtoWidget) == "undefined") {
+	var ProtoWidget = {};
+}
+
+Object.extend(ProtoWidget, { Inspector: ProtoWidgetInspector });
+ProtoWidgetInspector = null;
+
