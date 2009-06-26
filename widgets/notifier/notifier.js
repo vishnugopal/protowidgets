@@ -8,16 +8,23 @@ var ProtoWidgetNotifier = Class.create({
 	
 	notify: function(options) {
 		options.id = options.window ? options.window.id : this.randomId();
-		bottom_offset = (this.messages.length * 40) + 10;
 		defaultOptions = {
 			remove_after: 5,
 			right: 30,
-			bottom: bottom_offset,
+			bottom: this.getNextBottomOffset(),
 			class_name: this.class_name,
 			onRemove: this.removeMessageMatchingId.bindAsEventListener(this)
 		}
 		messageWindow = new ProtoWidget.SimpleWindow(Object.extend(defaultOptions, options));
 		this.messages.push([options.id, messageWindow]);
+	},
+	
+	getNextBottomOffset: function() {
+		offset = 0;
+		this.messages.each(function(message) {
+			offset += 10 + $(message[0]).getHeight();
+		});
+		return offset + 10;
 	},
 	
 	removeMessageMatchingId: function(id) {
