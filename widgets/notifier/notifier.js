@@ -13,10 +13,12 @@ var ProtoWidgetNotifier = Class.create({
 			right: 30,
 			bottom: this.getNextBottomOffset(),
 			class_name: this.class_name,
+			beforeRemove: this.getHeightofRemovedWindow.bindAsEventListener(this),
 			onRemove: this.removeMessageMatchingId.bindAsEventListener(this)
 		}
 		messageWindow = new ProtoWidget.SimpleWindow(Object.extend(defaultOptions, options));
 		this.messages.push([options.id, messageWindow]);
+		return true;
 	},
 	
 	getNextBottomOffset: function() {
@@ -27,10 +29,25 @@ var ProtoWidgetNotifier = Class.create({
 		return offset + 10;
 	},
 	
+	getHeightofRemovedWindow: function(id) {
+		this.removedHeight = $(id).getHeight();
+		return true;
+	},
+	
 	removeMessageMatchingId: function(id) {
 		this.messages = this.messages.reject(function(element) {
 			return (id == element[0]);
 		});
+		this.messages.each(function(message) {
+			bottomOffset = $(message[0]).style.bottom.gsub("px", '') - (this.removedHeight + 10);
+			
+			new Effect.Morph(message[0], {
+			  style: {
+					bottom: bottomOffset + "px"
+				}, 
+			  duration: 0.4
+			});
+		}, this);
 	},
 	
 	randomId: function() {

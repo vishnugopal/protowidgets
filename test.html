@@ -65,7 +65,32 @@
   <button name="save" class="icon" data-icon="save">Save</button>
 </form>
 
+<!-- <div id="test" class="now">
+</div>
+
+<style type="text/css">
+.now {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: yellow;
+}
+.error {
+  width: 200px;
+  height: 200px;
+  background-color: red;
+}
+</style> -->
+
 <script type="text/javascript" charset="utf-8">
+  
+  // new Effect.Morph("test", {
+  //   style: {
+  //     bottom: "100px"
+  //   },
+  //   duration: 0.8
+  // });
+  
   
   menu_inspector = new ProtoWidget.Inspector({ id: "box1-inspector" });
   box1 = new ProtoWidget.Box({ 
@@ -114,7 +139,15 @@
   
   notifier = new ProtoWidget.Notifier();
   notifier.notify({ message: "Double click the boxes to get an inspector!" });
-    
+  window.setTimeout(function() {
+    notifier.notify({ message: "Also try moving the boxes around" })
+  }, 2000);
+  window.setTimeout(function() {
+    notifier.notify({ message: "Or double-click the boxes labels to edit them" })
+  }, 6000);
+  window.setTimeout(function() {
+    notifier.notify({ message: "And don't forget to try out the targeter in the first inspector!" })
+  }, 7000);
 </script>
 </body>
 </html>

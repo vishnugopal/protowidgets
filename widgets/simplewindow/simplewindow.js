@@ -45,6 +45,11 @@ var ProtoWidgetSimpleWindow = Class.create({
 	},
 	
 	remove: function(delay) {		
+		if(this.options.beforeRemove) {
+			if(!this.options.beforeRemove(this.options.id)) {
+				return false;
+			}
+		}
 		if(delay) {
 			Element.remove.delay(delay, this.simpleWindow);
 			this.options.onRemove.delay(delay, this.options.id);
