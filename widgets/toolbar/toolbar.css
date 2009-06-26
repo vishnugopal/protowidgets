@@ -1,9 +1,7 @@
 
-.protowidget-selector-target {
-	border: 2px solid green;
-}
 
-.protowidget-toolbar {
+
+.protowidget-toolbar-default {
 	position: fixed;
 	left: 50%;
 	top: 0;
@@ -19,7 +17,7 @@
 	z-index: 1000;
 }
 
-.protowidget-toolbar button {
+.protowidget-toolbar-default button {
 	color: #aaa;
 	float: left;
 	-webkit-border-radius: 5px;
@@ -31,7 +29,7 @@
 	margin-right: 10px;
 }
 
-.protowidget-toolbar button.icon {
+.protowidget-toolbar-default button.icon {
 	text-align: left;
 	text-indent: 18px;
 	min-width: 16px;
@@ -40,11 +38,11 @@
 	background-repeat: no-repeat;
 }
 
-.protowidget-toolbar button:hover {
+.protowidget-toolbar-default button:hover {
 	background-color: black;
 }
 
-.protowidget-toolbar button:active {
+.protowidget-toolbar-default button:active {
 	background-color: black;
 }
 

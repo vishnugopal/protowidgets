@@ -14,6 +14,9 @@
   <script src="widgets/orthogonalline/orthogonalline.js" type="text/javascript"></script>
   <script src="widgets/link/link.js" type="text/javascript"></script>
   <script src="widgets/inspector/inspector.js" type="text/javascript"></script>
+  <script src="widgets/targeter/targeter.js" type="text/javascript"></script>
+  <script src="widgets/toolbar/toolbar.js" type="text/javascript"></script>
+  
   
   <link rel="stylesheet" href="widgets/box/box.css" type="text/css" media="screen" charset="utf-8"/>
 	<link rel="stylesheet" href="widgets/label/label.css" type="text/css" media="screen" charset="utf-8"/>
@@ -21,6 +24,9 @@
 	<link rel="stylesheet" href="widgets/orthogonalline/orthogonalline.css" type="text/css" media="screen" charset="utf-8"/>
 	<link rel="stylesheet" href="widgets/link/link.css" type="text/css" media="screen" charset="utf-8"/>
 	<link rel="stylesheet" href="widgets/inspector/inspector.css" type="text/css" media="screen" charset="utf-8"/>
+	<link rel="stylesheet" href="widgets/targeter/targeter.css" type="text/css" media="screen" charset="utf-8"/>
+	<link rel="stylesheet" href="widgets/toolbar/toolbar.css" type="text/css" media="screen" charset="utf-8"/>
+	
 </head>
 <body>
 
@@ -49,6 +55,11 @@
     </form>
   </div>
 </div>
+
+<form id="menu-toolbar">
+  <button name="add_box" class="icon" data-icon="action_add">Add Flow Box</button>
+  <button name="save" class="icon" data-icon="save">Save</button>
+</form>
 
 <script type="text/javascript" charset="utf-8">
   
@@ -81,6 +92,21 @@
   box4.link({to: box2, relationship: "child"});
   box1.link({to: box5, relationship: "parent"});
   box5.link({to: box1, relationship: "parent"});
+  
+  
+  $$('.selector').each(function(element) {
+    new ProtoWidget.Targeter({
+      element: element, 
+      target_class_name: 'protowidget-box-default', 
+      onTarget: function(element) {
+        $('box1-menu-target-1').value = element.id;
+      }
+    });
+  });
+  
+  toolbar = new ProtoWidget.Toolbar({
+    id: "menu-toolbar"
+  });
     
 </script>
 </body>

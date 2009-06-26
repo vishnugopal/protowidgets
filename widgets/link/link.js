@@ -2,7 +2,6 @@
 var ProtoWidgetLink = Class.create({	
 	initialize: function(options) {
 		this.options = options;
-		console.log(this.options);
 		this.from = $(this.options.from.options.id);
 		this.to = $(this.options.to.options.id);	
 		this.randomOffset = Math.ceil(Math.random() * 100);	
