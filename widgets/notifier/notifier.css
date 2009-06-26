@@ -1,0 +1,16 @@
+
+.protowidget-notifier-default {
+	position: absolute;
+	background-color: yellow;
+	min-width: 100px;
+	min-height: 20px;
+	-moz-opacity: 0.6;
+	-webkit-opacity: 0.6;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 1px solid black;
+	padding: 5px;
+	font: 12px Helvetica;
+	background-repeat: no-repeat;
+	padding: 15px;
+}
