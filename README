@@ -1,10 +1,10 @@
-ProtoWidgets is a library to provide common GUI widgets for Javascript desktop-like applications. 
+ProtoWidgets is a Javascript library that provides common GUI widgets for browser-based desktop-like applications. 
 
-Compared to other GUI libraries, ProtoWidgets have these advantages:
-* lighter dependencies - only prototype and scriptaculous.
-* extremely modular - you use only what you need.
-* styling using CSS - you style only using CSS. Change a class name for a whole new look.
-* placement using HTML - there's no layouting system in-built. You use HTML for that.
+Compared to other GUI libraries, ProtoWidgets has these advantages:
+* Lighter Dependencies - only prototype and scriptaculous.
+* Extremely Modular - you use only what you need.
+* Styling using CSS - you style only using CSS. Change a class name for a whole new look.
+* Placement using HTML - there's no layouting system in-built. You use HTML for that.
 
 In short, this is a widget library for people who know Javascript and CSS and how to make elegant web pages, but need some extra functionality with minimum intrusiveness.
 
