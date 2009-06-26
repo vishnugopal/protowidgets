@@ -1,0 +1,13 @@
+
+.protowidget-box-default {
+	position: absolute;
+	display: block;
+	background-color: green;
+	-moz-opacity: 0.7;
+	-webkit-opacity: 0.7;
+	width: 100px;
+	height: 100px;
+	border: 2px solid #eee;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+}

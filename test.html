@@ -4,97 +4,43 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>Protoboxen Test</title>
 	<meta name="author" content="Vishnu Gopal"/>
-	
-	<link rel="stylesheet" href="protoboxen.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
-	<link rel="stylesheet" href="protoinspector.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
-	<link rel="stylesheet" href="protowidgets.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
-	
+		
   <script src="lib/prototype.js" type="text/javascript"></script>
   <script src="lib/scriptaculous.js" type="text/javascript"></script>
-  <script src="protoboxen.js" type="text/javascript"></script>
   
-  <script src="protoinspector.js" type="text/javascript"></script>
+  <script src="widgets/box/box.js" type="text/javascript"></script>
+  <script src="widgets/label/label.js" type="text/javascript"></script>
+  <script src="widgets/straightline/straightline.js" type="text/javascript"></script>
+  <script src="widgets/orthogonalline/orthogonalline.js" type="text/javascript"></script>
+  <script src="widgets/link/link.js" type="text/javascript"></script>
   
-  <script src="protowidgets.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="widgets/box/box.css" type="text/css" media="screen" charset="utf-8"/>
+	<link rel="stylesheet" href="widgets/label/label.css" type="text/css" media="screen" charset="utf-8"/>
+	<link rel="stylesheet" href="widgets/straightline/straightline.css" type="text/css" media="screen" charset="utf-8"/>
+	<link rel="stylesheet" href="widgets/orthogonalline/orthogonalline.css" type="text/css" media="screen" charset="utf-8"/>
+	<link rel="stylesheet" href="widgets/link/link.css" type="text/css" media="screen" charset="utf-8"/>
 </head>
 <body>
 
-<div id="box1-inspector">
-  <div class="title">Menu Inspector</div>
-  <div class="content">
-    <form action="" method="get" accept-charset="utf-8">
-      <p><label for="menu_title">Menu Text:</label> <textarea name="menu_text"></textarea></p>
-      <fieldset>
-        <legend>Menu Items</legend>
-        <p><label for="menu_option[]">Menu Option Label:</label> <input type="text" name="menu_option[]" value=""/> <button name="delete" class="icon delete">-</button></p>
-        <p><label for="menu_target[]">Menu Target (id):</label> <input type="text" id="box1-menu-target-1" name="menu_target[]" value=""/> <button class="icon selector">&raquo;</button></p>
-        <p><button name="add_more" class="center">Add more menu items</button></p>
-      </fieldset>
-      <p><button name="apply">Apply</button></p>
-    </form>
-  </div>
-</div>
-
-<div id="box5-inspector">
-  <div class="title">Redirect Inspector</div>
-  <div class="content">
-    <form action="" method="get" accept-charset="utf-8">
-      <p><label for="menu_title">Redirect Target (id):</label> <input type="text" name="redirect_target" value=""/></p>
-      <p><button name="apply">Apply</button></p>
-    </form>
-  </div>
-</div>
-
-<form id="menu-toolbar">
-  <button name="add_box" class="icon" data-icon="action_add">Add Flow Box</button>
-  <button name="save" class="icon" data-icon="save">Save</button>
-</form>
-
 <script type="text/javascript" charset="utf-8">
   
-  menu_inspector = new ProtoInspector({ id: "box1-inspector" });
-  box1 = new ProtoBox({ 
+  box1 = new ProtoWidget.Box({ 
     id: "box1", 
-    draggable: true, 
-    label: "Menu", 
+    draggable: true,
+    label: "Box 1",
     left: 200, 
     top: 100,
-    inspector: menu_inspector
   });
   
-  box2 = new ProtoBox({ id: "box2", draggable: true, label: "Menu", left: 100, top: 300 });
-  box3 = new ProtoBox({ id: "box3", draggable: true, label: "Message", left: 300, top: 300 });
-  box4 = new ProtoBox({ id: "box4", draggable: true, label: "Message", left: 300, top: 500 });
-  
-  box5 = new ProtoBox({ 
-    id: "box5", 
-    draggable: true, 
-    label: "Redirect", 
-    left: 500, 
-    top: 300,
-    inspector: { id: "box5-inspector" }
+  box2 = new ProtoWidget.Box({ 
+    id: "box2", 
+    draggable: true,
+    label: "Box 2",
+    left: 400, 
+    top: 200,
   });
   
-  
-  box1.link({to: box2, relationship: "parent"});
-  box1.link({to: box3, relationship: "parent"});
-  box4.link({to: box2, relationship: "child"});
-  box1.link({to: box5, relationship: "parent"});
-  box5.link({to: box1, relationship: "parent"});  
-
-  $$('.selector').each(function(element) {
-    new ProtoWidget.Targeter({
-      element: element, 
-      target_class_name: 'protobox-default', 
-      onTarget: function(element) {
-        $('box1-menu-target-1').value = element.id;
-      }
-    });
-  });
-  
-  toolbar = new ProtoWidget.Toolbar({
-    id: "menu-toolbar"
-  });
+  box1.link({to: box2, relationship: "child"});
     
 </script>
 </body>

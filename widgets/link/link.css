@@ -1,0 +1,14 @@
+
+.protowidget-link-arrow-start {
+	display: block;
+	position: absolute;
+	border: 1px solid black;
+}
+
+.protowidget-link-arrow-end {
+	display: block;
+	position: absolute;
+	border: 0px;
+	background: url('../../icons/arrow_end.gif');
+	width: 10px;
+}

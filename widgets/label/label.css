@@ -1,0 +1,19 @@
+
+.protowidget-label-default {
+	display: block;
+	position: relative;
+	background-color: white;
+	width: 80%;
+	border: 1px solid #ccc;
+	text-align: center;
+	font: small Helvetica, Arial;
+	padding: 2px;
+	margin: 0px;
+}
+
+span.protowidget-label-default {
+	color: white;
+	cursor: default;
+	background-color: transparent;
+	border: 1px solid transparent;
+}
