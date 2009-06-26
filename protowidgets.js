@@ -148,7 +148,7 @@ var ProtoWidget = {
 			this.toolbar = $(this.options.id);
 			this.toolbar.addClassName(this.options.class_name || this.class_name);
 			$$("#" + this.options.id + " button.icon").each(function(button) {
-				icon_name = button.readAttribute("data:icon");
+				icon_name = button.readAttribute("data-icon");
 				icon_path = ProtoWidget.options.icons_path + "/" + icon_name + "." + ProtoWidget.options.icons_extension;
 				console.log(icon_path);
 				button.setStyle({
