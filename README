@@ -1,68 +1,35 @@
+ProtoWidgets is a library to provide common GUI widgets for Javascript desktop-like applications. 
 
-ProtoBoxen is a Javascript library designed to generate linkable, labelable and draggable CSS boxes.
+Compared to other GUI libraries, ProtoWidgets have these advantages:
+* lighter dependencies - only prototype and scriptaculous.
+* extremely modular - you use only what you need.
+* styling using CSS - you style only using CSS. Change a class name for a whole new look.
+* placement using HTML - there's no layouting system in-built. You use HTML for that.
 
-Depends on:
-* prototype
-* scriptaculous
+In short, this is a widget library for people who know Javascript and CSS and how to make elegant web pages, but need some extra functionality with minimum intrusiveness.
 
-These are distributed with protoboxen in the lib/ directory. 
+If you are already using Prototype+Scriptaculous (as many Rails applications are), then ProtoWidgets is just a simple drop & use.
 
-You generate a box with the following syntax:
+Take a look at the widgets/ directory for the widgets that ProtoWidgets implements.
 
-var box1 = new ProtoBox({ id: "box1", draggable: true, label: "Menu", left: 200, top: 100 });
+Currently there are 10:
+* Box - A draggable and labelable box.
+* Inspector - An OSX-like HUD inspector for elements.
+* Label - A label for elements (usually boxes).
+* Link - A link (line with begin and end) between two elements (usually boxes).
+* Notifier - An OSX Growl-like notification system.
+* OrthogonalLine - An orthogonal line between any two points.
+* SimpleWindow - A base window class that you can extend to add functionality.
+* StraightLine - A single line at 90 degrees between any two valid points.
+* Targeter - A widget that helps in selecting other elements on screen.
+* Toolbar - A simple, easy toolbar over the top of the screen.
 
-ProtoBox takes the following options:
-id (required): The DOM id of the box.
-draggable (optional): The box can be dragged if true.
-label (optional): Either "true" (in which case the label is "Untitled") or the label text. Labels if present are editable by double-clicking on them.
-left: The left position of the box.
-top: The top position of the box.
+For a whirlwind example, see test.html
 
-You link two boxes with the following syntax:
+License:
+ProtoWidgets is released under the Affero GPL license. To get a copy of this license, visit: http://www.affero.org/oagpl.html
 
-box4.link({to: box2, relationship: "child"});
-
-takes two parameters:
-to: the target box, must be a ProtoBox object.
-relationship: either "child" or "parent"
-
-Here box4 is the "child" of box2.
-
-A box can have multiple children and multiple parents, we're kinda promiscuous that way :)
-
-Inspectors:
-Boxes can now also have a HUD style inspector.
-
-To create an inspector, populate an inspector div with contents (see test.html for common form structures) and then pass an inspector hash to the ProtoBox constructor.
-For e.g:
-box1 = new ProtoBox({ 
-  id: "box1", 
-  draggable: true, 
-  label: "Menu", 
-  left: 200, 
-  top: 100,
-  inspector: { id: "box1-inspector" }
-});
-
-Inspectors are OSX-style HUD inspectors which can be filled with data. To invoke an inspector, double click on the box.
-
-Demo:
-See test.html for a demo.
-
-
-More hints:
-* Change the arrow-end.gif to have a transparent background in case you're not working with a white background.
-* Subclass ProtoBox and use a different class_name property to style things differently and to add more functionality.
-
-Deploy:
-You might wish to use a javascript dependency management system (like sprockets) when you deploy.
-
-
-Tested on Safari 4 and Firefox 3. I dunno about IE, if there are problems, patches welcome!
-
-Copyright Vishnu Gopal, 2009.
-This code is hereby placed in the Public Domain. Do what you will.
-
+Credits:
 Icons courtesy icojoy: http://www.icojoy.com/articles/19/
 
 --
