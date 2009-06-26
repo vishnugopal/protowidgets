@@ -94,7 +94,6 @@ var ProtoWidget = {
 		},
 		
 		monitorKeyPressForEscape: function(event) {
-			console.log("key pressed");
 			if(event.keyCode == Event.KEY_ESC) {
 				this.removeAllObservers();
 			}
@@ -150,7 +149,6 @@ var ProtoWidget = {
 			$$("#" + this.options.id + " button.icon").each(function(button) {
 				icon_name = button.readAttribute("data-icon");
 				icon_path = ProtoWidget.options.icons_path + "/" + icon_name + "." + ProtoWidget.options.icons_extension;
-				console.log(icon_path);
 				button.setStyle({
 					backgroundImage: "url('" + icon_path + "')"
 				});
