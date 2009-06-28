@@ -13,55 +13,72 @@ var ProtoWidgetBox = Class.create({
 	},
 	
 	defineDefaultOutlets: function() {
-		this.outlet_callbacks = new Hash();
-		this.addOutlet("top-center", function() {
-			return [
-				this.box.cumulativeOffset()[0] + this.box.getWidth() / 2, this.box.cumulativeOffset()[1]
-			];
-		}.bindAsEventListener(this));
-		this.addOutlet("bottom-center", function() {
-			return [
-				this.box.cumulativeOffset()[0] + this.box.getWidth() / 2, this.box.cumulativeOffset()[1] + this.box.getHeight()
-			];
-		}.bindAsEventListener(this));
+		this.outlets = new Array();
+		this.addOutlet({ name: "top-center", link_offset: { top: +9, left: 0 } });
+		this.addOutlet({ name: "bottom-center", link_offset: { top: +6, left: +4 } });
 	},
 	
-	addOutlet: function(outlet_name, outlet_callback) {
-		this.outlet_callbacks.set(outlet_name, outlet_callback);
+	addOutlet: function(outlet) {
+		this.outlets.push(outlet);
+	},
+	
+	findOutletByName: function(outlet_name) {
+		return this.outlets.detect(function(outlet) {
+			return outlet_name == outlet.name
+		});
 	},
 	
 	outletPosition: function(outlet_name) {
-		return this.outlet_callbacks.get(outlet_name)();
+		outlet = this.findOutletByName(outlet_name);
+		this.showOutlet(outlet.name, outlet.link_offset);
+		outlet_div = $(this.options.id + "-outlet-" + outlet_name)
+		offset = outlet_div.cumulativeOffset();
+		offset_top = outlet_div.getAttribute("data-link-offset-top");
+		offset_left = outlet_div.getAttribute("data-link-offset-left");
+		this.hideOutlet(outlet_name);
+		return [ parseInt(offset[0]) + parseInt(offset_left), parseInt(offset[1]) + parseInt(offset_top) ];
 	},
 	
 	showOutlets: function() {
-		this.outlet_callbacks.each(function(outlet) {
-			outlet_div = new Element("div", { 
-				'id': this.options.id + "-outlet-" + outlet[0],
-				'class': (this.options.class_name || this.class_name) + '-outlet'
-			});
-			outlet_position = outlet[1]();
-			outlet_div.style.left = outlet_position[0] + "px";
-			outlet_div.style.top = outlet_position[1] + "px";
-			outlet_div.setAttribute("data-box-id", this.options.id);
-			outlet_div.setAttribute("data-outlet-name", outlet[0]);
-			Element.insert(this.options.insert_into || document.body, outlet_div);
-		}, this);
+		if(!this.outlets_visible) {
+			this.outlets.each(function(outlet) {
+				this.showOutlet(outlet.name, outlet.link_offset);
+			}, this);
+		}
 		this.outlets_visible = true;
 	},
 	
+	showOutlet: function(outlet, link_offset) {
+		outlet_div = new Element("div", { 
+			'id': this.options.id + "-outlet-" + outlet,
+			'class': 
+				(this.options.class_name || this.class_name) + '-outlet' + ' ' +
+				(this.options.class_name || this.class_name) + '-outlet-' + outlet
+		});
+		outlet_div.setAttribute("data-box-id", this.options.id);
+		outlet_div.setAttribute("data-outlet-name", outlet);
+		outlet_div.setAttribute("data-link-offset-top", link_offset.top);
+		outlet_div.setAttribute("data-link-offset-left", link_offset.left);
+		Element.insert(this.options.insert_into || this.box, { top: outlet_div });
+	},
+	
 	hideOutlets: function() {
-		this.outlet_callbacks.each(function(outlet) {
-			Element.remove($(this.options.id + "-outlet-" + outlet[0]));
-		}, this);
+		if(this.outlets_visible) {
+			this.outlets.each(function(outlet_name) {
+				this.hideOutlet(outlet_name);
+			}, this);
+		}
 		this.outlets_visible = false;
 	},
 	
-	updateOutlets: function() {
-		if(this.outlets_visible) {
-			this.hideOutlets();
-			this.showOutlets();
-		}
+	hideOutlet: function(outlet) {
+		Element.remove($(this.options.id + "-outlet-" + outlet));
+	},
+		
+	removeOutlets: function() {
+		this.hideOutlets();
+		this.outlets = null;
+		this.outlets = new Array();
 	},
 	
 	draw: function(options) {
@@ -71,11 +88,16 @@ var ProtoWidgetBox = Class.create({
 		Element.insert(this.options.insert_into || document.body, this.box);
 		
 		if(this.options.draggable) {
-			new Draggable(this.box, { onDrag: this.updateDrawing.bindAsEventListener(this) });
+			new Draggable(this.box, { 
+				onDrag: this.updateDrawing.bindAsEventListener(this),
+				onEnd: this.updateDrawing.bindAsEventListener(this)
+			});
 		}
 		
 		if(this.options.label) {
-			this.label = new ProtoWidget.Label(this.box, { value: (this.options.label == true) ? "Untitled" : this.options.label });
+			this.label = new ProtoWidget.Label(this.box, { 
+				value: (this.options.label == true) ? "Untitled" : this.options.label
+			});
 		}
 	},
 	
@@ -128,7 +150,6 @@ var ProtoWidgetBox = Class.create({
 	
 	updateDrawing: function(draggable, event) {
 		this.updateLinks();
-		this.updateOutlets();
 	},
 	
 	updateLinks: function(draggable, event) {

@@ -8,12 +8,6 @@ var ProtoWidgetLabel = Class.create({
 		this.edit_label = new Element("span", { 'id': box.id + '-label', 'class': this.options.class_name || this.class_name });
 		Element.insert(box, this.edit_box);
 		Element.insert(box, this.edit_label);
-		center_top = (box.getHeight() / 2) - (this.edit_box.getHeight() / 2) + "px";
-		center_left = (box.getWidth() / 2) - (this.edit_box.getWidth() / 2) + "px";
-		this.edit_box.style.top = center_top;
-		this.edit_box.style.left = center_left;
-		this.edit_label.style.top = center_top;
-		this.edit_label.style.left = center_left;
 		this.edit_box.hide();
 		this.setValue(this.options.value || "Untitled");
 		
