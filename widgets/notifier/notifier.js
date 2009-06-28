@@ -17,6 +17,9 @@ var ProtoWidgetNotifier = Class.create({
 			onRemove: this.removeMessageMatchingId.bindAsEventListener(this)
 		}
 		messageWindow = new ProtoWidget.SimpleWindow(Object.extend(defaultOptions, options));
+		if(options.error) {
+			messageWindow.addClassName(this.class_name + "-error");
+		}
 		this.messages.push([options.id, messageWindow]);
 		return true;
 	},

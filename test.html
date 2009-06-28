@@ -18,7 +18,7 @@
   <script src="widgets/toolbar/toolbar.js" type="text/javascript"></script>
   <script src="widgets/simplewindow/simplewindow.js" type="text/javascript"></script>
   <script src="widgets/notifier/notifier.js" type="text/javascript"></script>
-  
+  <script src="behaviors/makelink/makelink.js" type="text/javascript"></script>
   
   
   <link rel="stylesheet" href="widgets/box/box.css" type="text/css" media="screen" charset="utf-8"/>
@@ -61,36 +61,12 @@
 </div>
 
 <form id="menu-toolbar">
-  <button name="add_box" class="icon" data-icon="action_add">Add Flow Box</button>
-  <button name="save" class="icon" data-icon="save">Save</button>
+  <button id="add_box" class="icon" data-icon="action_add">Add Flow Box</button>
+  <button id="save" class="icon" data-icon="save">Save</button>
+  <button id="makelink">Make a Link</button>
 </form>
 
-<!-- <div id="test" class="now">
-</div>
-
-<style type="text/css">
-.now {
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  background-color: yellow;
-}
-.error {
-  width: 200px;
-  height: 200px;
-  background-color: red;
-}
-</style> -->
-
 <script type="text/javascript" charset="utf-8">
-  
-  // new Effect.Morph("test", {
-  //   style: {
-  //     bottom: "100px"
-  //   },
-  //   duration: 0.8
-  // });
-  
   
   menu_inspector = new ProtoWidget.Inspector({ id: "box1-inspector" });
   box1 = new ProtoWidget.Box({ 
@@ -119,10 +95,7 @@
   box1.link({to: { object: box2, outlet: "bottom-center" }, relationship: "parent"});
   box1.link({to: box3, relationship: "parent"});
   box4.link({to: box2, relationship: "child"});
-  box1.link({to: box5, relationship: "parent"});
-  box5.link({to: box1, relationship: "parent"});
-  
-  
+    
   $$('.selector').each(function(element) {
     new ProtoWidget.Targeter({
       element: element, 
@@ -139,15 +112,19 @@
   
   notifier = new ProtoWidget.Notifier();
   notifier.notify({ message: "Double click the boxes to get an inspector!" });
-  window.setTimeout(function() {
-    notifier.notify({ message: "Also try moving the boxes around" })
-  }, 2000);
-  window.setTimeout(function() {
-    notifier.notify({ message: "Or double-click the boxes labels to edit them" })
-  }, 6000);
-  window.setTimeout(function() {
-    notifier.notify({ message: "And don't forget to try out the targeter in the first inspector!" })
-  }, 7000);
+  
+  boxes = [];
+  boxes.push(box1);
+  boxes.push(box2);
+  boxes.push(box3);
+  boxes.push(box4);
+  boxes.push(box5);
+    
+  $("makelink").observe("click", function(event) {
+    event.stop();
+    new ProtoWidget.Behavior.MakeLink({boxes: boxes, toolbar: toolbar, notifier: notifier});
+  }.bindAsEventListener(this));
+  
 </script>
 </body>
 </html>

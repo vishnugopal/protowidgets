@@ -18,6 +18,14 @@ var ProtoWidgetToolbar = Class.create({
 				backgroundImage: "url('" + icon_path + "')"
 			});
 		}, this);
+	},
+	
+	getContentsHTML: function() {
+		return this.toolbar.innerHTML;
+	},
+	
+	setContentsHTML: function(contents) {
+		this.toolbar.innerHTML = contents;
 	}
 });
 

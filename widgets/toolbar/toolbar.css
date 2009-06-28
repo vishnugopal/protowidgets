@@ -1,6 +1,4 @@
 
-
-
 .protowidget-toolbar-default {
 	position: fixed;
 	left: 50%;
@@ -15,6 +13,7 @@
 	-webkit-border-radius: 10px;
 	padding: 10px;
 	z-index: 1000;
+	font: 12px Helvetica, Arial, sans-serif;
 }
 
 .protowidget-toolbar-default button {

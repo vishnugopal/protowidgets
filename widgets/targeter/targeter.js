@@ -12,7 +12,11 @@ var ProtoWidgetTargeter = Class.create({
 	},
 
 	initSelector: function() {
-		this.element.observe("click", this.initObservers.bindAsEventListener(this));
+		if(this.element) {
+			this.element.observe("click", this.initObservers.bindAsEventListener(this));
+		} else {
+			this.initObservers();
+		}
 	},
 
 	addSelectorToTarget: function(event, target) {
@@ -50,7 +54,9 @@ var ProtoWidgetTargeter = Class.create({
 		//cross hair cursor for entire document
 		this.style_move_cursor = new ProtoWidget.Util.CSSRule('*', 'cursor:crosshair;');			
 		
-		event.stop();
+		if(event) {
+			event.stop();
+		}
 	},
 	
 	monitorKeyPressForEscape: function(event) {

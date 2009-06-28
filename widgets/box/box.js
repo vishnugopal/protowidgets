@@ -13,8 +13,7 @@ var ProtoWidgetBox = Class.create({
 	},
 	
 	defineDefaultOutlets: function() {
-		this.outlets = [];
-		this.outlet_callbacks = {};
+		this.outlet_callbacks = new Hash();
 		this.addOutlet("top-center", function() {
 			return [
 				this.box.cumulativeOffset()[0] + this.box.getWidth() / 2, this.box.cumulativeOffset()[1]
@@ -28,11 +27,41 @@ var ProtoWidgetBox = Class.create({
 	},
 	
 	addOutlet: function(outlet_name, outlet_callback) {
-		this.outlet_callbacks[outlet_name] =  outlet_callback;
+		this.outlet_callbacks.set(outlet_name, outlet_callback);
 	},
 	
 	outletPosition: function(outlet_name) {
-		return this.outlet_callbacks[outlet_name]();
+		return this.outlet_callbacks.get(outlet_name)();
+	},
+	
+	showOutlets: function() {
+		this.outlet_callbacks.each(function(outlet) {
+			outlet_div = new Element("div", { 
+				'id': this.options.id + "-outlet-" + outlet[0],
+				'class': (this.options.class_name || this.class_name) + '-outlet'
+			});
+			outlet_position = outlet[1]();
+			outlet_div.style.left = outlet_position[0] + "px";
+			outlet_div.style.top = outlet_position[1] + "px";
+			outlet_div.setAttribute("data-box-id", this.options.id);
+			outlet_div.setAttribute("data-outlet-name", outlet[0]);
+			Element.insert(this.options.insert_into || document.body, outlet_div);
+		}, this);
+		this.outlets_visible = true;
+	},
+	
+	hideOutlets: function() {
+		this.outlet_callbacks.each(function(outlet) {
+			Element.remove($(this.options.id + "-outlet-" + outlet[0]));
+		}, this);
+		this.outlets_visible = false;
+	},
+	
+	updateOutlets: function() {
+		if(this.outlets_visible) {
+			this.hideOutlets();
+			this.showOutlets();
+		}
 	},
 	
 	draw: function(options) {
@@ -42,7 +71,7 @@ var ProtoWidgetBox = Class.create({
 		Element.insert(this.options.insert_into || document.body, this.box);
 		
 		if(this.options.draggable) {
-			new Draggable(this.box, { onDrag: this.updateLinks.bindAsEventListener(this) });
+			new Draggable(this.box, { onDrag: this.updateDrawing.bindAsEventListener(this) });
 		}
 		
 		if(this.options.label) {
@@ -95,6 +124,11 @@ var ProtoWidgetBox = Class.create({
 			link.remove();
 			link = null;
 		});
+	},
+	
+	updateDrawing: function(draggable, event) {
+		this.updateLinks();
+		this.updateOutlets();
 	},
 	
 	updateLinks: function(draggable, event) {

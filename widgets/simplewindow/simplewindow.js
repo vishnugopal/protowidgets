@@ -59,6 +59,10 @@ var ProtoWidgetSimpleWindow = Class.create({
 		}
 	},
 	
+	addClassName: function(class_name) {
+		this.simpleWindow.addClassName(class_name);
+	},
+	
 	randomId: function() {
 		return this.class_name + "-" + Math.ceil(Math.rand * 10000);
 	}
