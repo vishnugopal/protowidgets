@@ -14,6 +14,12 @@ ProtoWidgetsBehaviorMakeLink = Class.create({
 	outlet_class_name: "protowidget-box-default-outlet",
 	
 	initialize: function(options) {
+		/* If another MakeLink is active, don't do anything! */
+		if(ProtoWidget.Behavior.MakeLink.active) {
+			return false;
+		}
+		ProtoWidget.Behavior.MakeLink.active = true;
+		
 		this.options = options;
 		this.boxes = options.boxes;
 		this.toolbar = options.toolbar;
@@ -44,9 +50,15 @@ ProtoWidgetsBehaviorMakeLink = Class.create({
 		      onTarget: function(element) {
 		        this.to_outlet = element;
 						return this.makeLink();
-		      }.bindAsEventListener(this)
+		      }.bindAsEventListener(this),
+					onCancel: function(targeter) {
+						this.returnWithError("Canceled!");
+					}.bindAsEventListener(this)
 		    });
-      }.bindAsEventListener(this)
+      }.bindAsEventListener(this),
+			onCancel: function(targeter) {
+				this.returnWithError("Canceled!");
+			}.bindAsEventListener(this)
     });
 	},
 	
@@ -90,6 +102,9 @@ ProtoWidgetsBehaviorMakeLink = Class.create({
 		this.boxes.each(function(box) {
 			box.hideOutlets();
 		});
+		
+		/* Make Link is not active anymore */
+		ProtoWidget.Behavior.MakeLink.active = false;
 		
 		return !error; // we return true if error is false
 	},
