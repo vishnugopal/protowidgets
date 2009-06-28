@@ -6,9 +6,33 @@ var ProtoWidgetBox = Class.create({
 		this.options = options;
 		this.links = [];
 		this.draw();
+		this.defineDefaultOutlets();
 		if(this.options.inspector) {
 			this.setInspector();
 		};
+	},
+	
+	defineDefaultOutlets: function() {
+		this.outlets = [];
+		this.outlet_callbacks = {};
+		this.addOutlet("top-center", function() {
+			return [
+				this.box.cumulativeOffset()[0] + this.box.getWidth() / 2, this.box.cumulativeOffset()[1]
+			];
+		}.bindAsEventListener(this));
+		this.addOutlet("bottom-center", function() {
+			return [
+				this.box.cumulativeOffset()[0] + this.box.getWidth() / 2, this.box.cumulativeOffset()[1] + this.box.getHeight()
+			];
+		}.bindAsEventListener(this));
+	},
+	
+	addOutlet: function(outlet_name, outlet_callback) {
+		this.outlet_callbacks[outlet_name] =  outlet_callback;
+	},
+	
+	outletPosition: function(outlet_name) {
+		return this.outlet_callbacks[outlet_name]();
 	},
 	
 	draw: function(options) {
@@ -27,19 +51,41 @@ var ProtoWidgetBox = Class.create({
 	},
 	
 	link: function(options) {
-		if(options.relationship == 'child') {
-			link = new ProtoWidget.Link({ from: options.to, to: this });
-			this.links.push(link);
-			options.to.links.push(link);
-		} else if (options.relationship == "parent") {
-			link = new ProtoWidget.Link({ from: this, to: options.to });
-			this.links.push(link);
-			options.to.links.push(link);
+		if(options.to.object) {
+			to_object = options.to.object;
+			to_outlet = options.to.outlet;
+		} else {
+			to_object = options.to;
+			if(options.relationship == "parent") {
+				to_outlet = "top-center";
+			} else {
+				to_outlet = "bottom-center";
+			}
 		}
-		if(parentLink = this.parentLinkTo(options.to)) {
+		
+		if(options.outlet) {
+			this_outlet = options.outlet;
+		} else {
+			if(options.relationship == "parent") {
+				this_outlet = "bottom-center";
+			} else {
+				this_outlet = "top-center";
+			}
+		}
+		
+		if(options.relationship == 'child') {
+			link = new ProtoWidget.Link({ from: { object: to_object, outlet: to_outlet }, to: { object: this, outlet: this_outlet } });
+			this.links.push(link);
+			to_object.links.push(link);
+		} else if (options.relationship == "parent") {
+			link = new ProtoWidget.Link({ from: { object: this, outlet: this_outlet }, to: { object: to_object, outlet: to_outlet } });
+			this.links.push(link);
+			to_object.links.push(link);
+		}
+		if(parentLink = this.parentLinkTo(to_object)) {
 			parentLink.update();
 		}
-		if(childLink = this.childLinkTo(options.to)) {
+		if(childLink = this.childLinkTo(to_object)) {
 			childLink.update();
 		}
 	},
@@ -79,25 +125,25 @@ var ProtoWidgetBox = Class.create({
 	
 	isParentOf: function(box) {
 		return this.links.any(function(link) {
-			return (link.options.from == this) && (link.options.to == box);
+			return (link.from_object == this) && (link.to_object == box);
 		}, this);
 	},
 	
 	isChildOf: function(box) {
 		return this.links.any(function(link) {
-			return (link.options.from == box) && (link.options.to == this);
+			return (link.from_object == box) && (link.to_object == this);
 		}, this);
 	},
 	
 	parentLinkTo: function(box) {
 		return this.links.detect(function(link) {
-			return (link.options.from == this) && (link.options.to == box);
+			return (link.from_object == this) && (link.to_object == box);
 		}, this);
 	},
 	
 	childLinkTo: function(box) {
 		return this.links.detect(function(link) {
-			return (link.options.from == box) && (link.options.to == this);
+			return (link.from_object == box) && (link.to_object == this);
 		}, this);
 	}
 });

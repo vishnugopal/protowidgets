@@ -2,8 +2,24 @@
 var ProtoWidgetLink = Class.create({	
 	initialize: function(options) {
 		this.options = options;
-		this.from = $(this.options.from.options.id);
-		this.to = $(this.options.to.options.id);	
+		if(this.options.from.object) {
+			this.from = $(this.options.from.object.options.id);
+			this.from_outlet = this.options.from.outlet;
+			this.from_object = this.options.from.object;
+		} else {
+			this.from = $(this.options.from.options.id);
+			this.from_outlet = "bottom-center";
+			this.from_object = this.options.from;
+		}
+		if(this.options.to.object) {
+			this.to = $(this.options.to.object.options.id);	
+			this.to_outlet = this.options.to.outlet;
+			this.to_object = this.options.to.object;
+		} else {
+			this.to = $(this.options.to.options.id);
+			this.to_object = this.options.to;
+			this.to_outlet = "top-center";
+		}
 		this.randomOffset = Math.ceil(Math.random() * 100);	
 		this.draw();
 	},
@@ -20,8 +36,9 @@ var ProtoWidgetLink = Class.create({
 		/* we draw 2 of ProtoStraightLine to denote start and end links,
 			 and then a ProtoOrthogonalLine to connect these points. */
 		
-		start_line_left = from_offset[0] + from_width / 2;
-		start_line_top = from_offset[1] + from_height;
+		start_line_dimensions = this.from_object.outletPosition(this.from_outlet);
+		start_line_left = start_line_dimensions[0];
+		start_line_top = start_line_dimensions[1];
 		start_line_height = 10;
 		this.start_line = new ProtoWidget.StraightLine({ 
 			left1: start_line_left, 
@@ -31,8 +48,9 @@ var ProtoWidgetLink = Class.create({
 			class_name: "protowidget-link-arrow-start"
 		});
 		
-		end_line_left = to_offset[0] + to_width / 2;
-		end_line_top = to_offset[1];
+		end_line_dimensions = this.to_object.outletPosition(this.to_outlet);
+		end_line_left = end_line_dimensions[0];
+		end_line_top = end_line_dimensions[1];
 		end_line_height = 15;
 		this.end_line = new ProtoWidget.StraightLine({ 
 			left1: end_line_left, 
@@ -47,7 +65,7 @@ var ProtoWidgetLink = Class.create({
 			top1: start_line_top + start_line_height, 
 			left2: end_line_left + 4, 
 			top2: end_line_top - end_line_height - 1,
-			randomOffset: this.options.to.isParentOf(this.options.from) ? this.randomOffset : 0
+			randomOffset: this.to_object.isParentOf(this.from_object) ? this.randomOffset : 0
 		});
 	},
 	

@@ -116,7 +116,7 @@
   });
 
 
-  box1.link({to: box2, relationship: "parent"});
+  box1.link({to: { object: box2, outlet: "bottom-center" }, relationship: "parent"});
   box1.link({to: box3, relationship: "parent"});
   box4.link({to: box2, relationship: "child"});
   box1.link({to: box5, relationship: "parent"});
