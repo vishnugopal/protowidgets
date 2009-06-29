@@ -141,11 +141,22 @@ var ProtoWidgetBox = Class.create({
 		}
 	},
 	
+	removeLink: function(link) {
+		this.links = this.links.reject(function(link_item) {
+			return link == link_item;
+		}, this);
+	},
+	
 	removeLinks: function() {
 		this.links.each(function(link) {
+			if(link.to_object == this) {
+				link.from_object.removeLink(link);
+			} else {
+				link.to_object.removeLink(link);
+			}
 			link.remove();
 			link = null;
-		});
+		}, this);
 	},
 	
 	updateDrawing: function(draggable, event) {
@@ -200,6 +211,12 @@ var ProtoWidgetBox = Class.create({
 		return this.links.detect(function(link) {
 			return (link.from_object == box) && (link.to_object == this);
 		}, this);
+	},
+	
+	remove: function(box) {
+		this.removeLinks();
+		this.removeOutlets();
+		this.box.remove();
 	}
 });
 
