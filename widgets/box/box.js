@@ -14,8 +14,8 @@ var ProtoWidgetBox = Class.create({
 	
 	defineDefaultOutlets: function() {
 		this.outlets = new Array();
-		this.addOutlet({ name: "top-center", link_offset: { top: +9, left: 0 } });
-		this.addOutlet({ name: "bottom-center", link_offset: { top: +6, left: +4 } });
+		this.addOutlet({ name: "top-center", link_offset: { top: +12, left: 0 } });
+		this.addOutlet({ name: "bottom-center", link_offset: { top: +5, left: +4 } });
 	},
 	
 	addOutlet: function(outlet) {
@@ -64,8 +64,8 @@ var ProtoWidgetBox = Class.create({
 	
 	hideOutlets: function() {
 		if(this.outlets_visible) {
-			this.outlets.each(function(outlet_name) {
-				this.hideOutlet(outlet_name);
+			this.outlets.each(function(outlet) {
+				this.hideOutlet(outlet.name);
 			}, this);
 		}
 		this.outlets_visible = false;
