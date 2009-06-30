@@ -63,6 +63,9 @@ var ProtoWidgetTargeter = Class.create({
 		if(event.keyCode == Event.KEY_ESC) {
 			this.removeAllObservers();
 		}
+		$$('.' + this.options.target_class_name).each(function(target) {
+			target.removeClassName(this.class_name_target);
+		}, this);
 		if(this.options.onCancel) {
 			this.options.onCancel(this);
 		}
